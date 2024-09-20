@@ -49,6 +49,7 @@ public class BinaryTree<T> extends Tree<T> {
         Node<T> current = getRoot();
         Node<T> parent = getRoot();
         boolean isLeftChild = false;
+        
         while (current.getValue() != value) {
             parent = current;
             if (value.hashCode() < current.getValue().hashCode()) {
