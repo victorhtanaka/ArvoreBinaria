@@ -1,5 +1,3 @@
-package Tree;
-
 public abstract class Tree<T> implements ITree<T> {
     private Node<T> root;
 

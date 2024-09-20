@@ -1,22 +1,31 @@
-package Tree;
-
 import java.awt.*;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MorseTree<T> extends Tree<T>  {
-    private HashMap<String, String> morseMap;
+import Queue.DynamicQueue;
 
-    public MorseTree(Node<T> root, HashMap<String, String> morseMap) {
-        super(root);
+public class CodeTree<T> extends Tree<T>  {
+    private HashMap<String, String> morseMap;
+    private char[] chars;
+    private DynamicQueue<String> keysQueue = new DynamicQueue<>(10);
+
+    public CodeTree(HashMap<String, String> morseMap, char[] chars, T rootValue) {
+        super(new Node<T>(rootValue));
         this.morseMap = morseMap;
+        this.chars = chars;
+    }
+
+    public void addCharsToStack() {
+        for (String key : morseMap.keySet()) {
+            keysQueue.store(key);
+        }
     }
 
     public void createTree() {
-        for (String key : morseMap.keySet()) {
-            insert((T) key);
+        while (!keysQueue.isEmpty()) {
+            insert((T) keysQueue.retrieve());
         }
         showTreeInPanel(new JFrame());
     }
@@ -27,19 +36,31 @@ public class MorseTree<T> extends Tree<T>  {
         Node<T> current = getRoot();
         Node<T> parent = null;
 
-        while (true) {
-            if (morseMap.get(key.toString()).charAt(0) == '.') {
-                if (current.getLeft() == null) {
-                    current.setLeft(newNode);
+        if (morseMap.get(key).charAt(0) == chars[0]) {
+            current = current.getLeft();
+            for (int j = 0; j < morseMap.get(key).length(); j++) {
+                if (current.getLeft() == null && morseMap.get(key).length() > 1) {
+                    keysQueue.store((String) key);
                     return;
                 }
-                current = current.getLeft();
-            } else {
-                if (current.getRight() == null) {
-                    current.setRight(newNode);
+                if (((String) key).charAt(j) == chars[0]) {
+                    current = current.getLeft();
+
+                } else {
+                    current = current.getRight();
+                }
+            }
+        } else {
+            for (int j = 0; j < morseMap.get(key).length(); j++) {
+                if (current.getRight() == null && morseMap.get(key).length() > 1) {
+                    keysQueue.store((String) key);
                     return;
                 }
-                current = current.getRight();
+                if (((String) key).charAt(j) == chars[0]) {
+                    current = current.getLeft();
+                } else {
+                    current = current.getRight();
+                }
             }
         }
     }

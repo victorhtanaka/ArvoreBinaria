@@ -1,11 +1,5 @@
 import java.util.HashMap;
 
-import javax.swing.JFrame;
-
-import Tree.BinaryTree;
-import Tree.MorseTree;
-import Tree.Node;
-
 public class Main {
     public static void main(String[] args) throws Exception {
         HashMap<String, String> morseAlphabetical = new HashMap<String, String>() {
@@ -48,7 +42,7 @@ public class Main {
                 put("0", "-----");
             }
         };
-        MorseTree<String> morseTree = new MorseTree<String>(new Node<String>(""), morseAlphabetical);
+        CodeTree<String> morseTree = new CodeTree<String>(morseAlphabetical, new char[] {'.', '-'}, "ROOT");
         morseTree.createTree();
     }
 }

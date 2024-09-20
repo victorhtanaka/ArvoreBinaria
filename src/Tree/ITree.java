@@ -1,4 +1,3 @@
-package Tree;
 
 public interface ITree<T> {
     void insert(T value);
