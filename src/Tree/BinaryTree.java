@@ -1,3 +1,5 @@
+package Tree;
+
 import javax.swing.*;
 import java.awt.*;
 

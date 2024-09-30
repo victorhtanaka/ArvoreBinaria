@@ -1,3 +1,5 @@
+package Tree;
+
 import java.awt.*;
 import java.util.HashMap;
 
@@ -20,49 +22,58 @@ public class CodeTree<T> extends Tree<T>  {
     public void addCharsToStack() {
         for (String key : morseMap.keySet()) {
             keysQueue.store(key);
+            System.out.println("Adicionando: " + key);
         }
     }
 
     public void createTree() {
         while (!keysQueue.isEmpty()) {
-            insert((T) keysQueue.retrieve());
+            T key = (T) keysQueue.retrieve();
+            insert(key);
         }
+
         showTreeInPanel(new JFrame());
     }
 
     @Override
     public void insert(T key) {
+        System.out.println("Inserindo: " + key);
         Node<T> newNode = new Node<>(key);
         Node<T> current = getRoot();
         Node<T> parent = null;
+        String lr = null;
 
-        if (morseMap.get(key).charAt(0) == chars[0]) {
-            current = current.getLeft();
-            for (int j = 0; j < morseMap.get(key).length(); j++) {
-                if (current.getLeft() == null && morseMap.get(key).length() > 1) {
-                    keysQueue.store((String) key);
-                    return;
+        String morseCode = morseMap.get(key);
+        for (int j = 0; j < morseCode.length(); j++) {
+            if (morseCode.charAt(j) == chars[0]) {
+                parent = current;
+                if (current.getLeft() == null) {
+                    if (j == morseCode.length() - 1) {
+                        parent.setLeft(newNode);
+                    } else {
+                        current.setLeft(new Node<>(null));
+                    }
                 }
-                if (((String) key).charAt(j) == chars[0]) {
-                    current = current.getLeft();
-
-                } else {
-                    current = current.getRight();
+                current = current.getLeft();
+                lr = "0";
+            } else {
+                parent = current;
+                if (current.getRight() == null) {
+                    if (j == morseCode.length() - 1) {
+                        parent.setRight(newNode);
+                    } else {
+                        current.setRight(new Node<>(null));
+                    }
                 }
-            }
-        } else {
-            for (int j = 0; j < morseMap.get(key).length(); j++) {
-                if (current.getRight() == null && morseMap.get(key).length() > 1) {
-                    keysQueue.store((String) key);
-                    return;
-                }
-                if (((String) key).charAt(j) == chars[0]) {
-                    current = current.getLeft();
-                } else {
-                    current = current.getRight();
-                }
+                current = current.getRight();
+                lr = "1";
             }
         }
+        if (lr == "0" && lr != null) {
+            parent.setLeft(newNode);
+        } else if (lr == "1" && lr != null) {
+            parent.setRight(newNode);
+        } 
     }
 
     @Override
@@ -108,7 +119,9 @@ public class CodeTree<T> extends Tree<T>  {
             g.setColor(Color.BLACK);
             g.fillOval(x - 10, y - 10, 20, 20);
             g.setColor(Color.WHITE);
-            g.drawString(node.getValue().toString(), x - 5, y + 5);
+            if (node.getValue() != null) {
+                g.drawString(node.getValue().toString(), x - 5, y + 5);
+            }
             
             if (node.getLeft() != null) {
                 g.setColor(Color.BLACK);
