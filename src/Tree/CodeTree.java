@@ -22,7 +22,6 @@ public class CodeTree<T> extends Tree<T>  {
     public void addCharsToStack() {
         for (String key : morseMap.keySet()) {
             keysQueue.store(key);
-            System.out.println("Adicionando: " + key);
         }
     }
 
@@ -41,7 +40,6 @@ public class CodeTree<T> extends Tree<T>  {
         Node<T> newNode = new Node<>(key);
         Node<T> current = getRoot();
         Node<T> parent = null;
-        String lr = null;
 
         String morseCode = morseMap.get(key);
         for (int j = 0; j < morseCode.length(); j++) {
@@ -53,9 +51,14 @@ public class CodeTree<T> extends Tree<T>  {
                     } else {
                         current.setLeft(new Node<>(null));
                     }
+                } else if (current.getLeft().getValue() == null || current.getLeft().getValue().toString() == null) {
+
+                    if (j == morseCode.length() - 1) {
+                        current.getLeft().setValue(key);
+                    }
                 }
                 current = current.getLeft();
-                lr = "0";
+
             } else {
                 parent = current;
                 if (current.getRight() == null) {
@@ -64,20 +67,20 @@ public class CodeTree<T> extends Tree<T>  {
                     } else {
                         current.setRight(new Node<>(null));
                     }
+                } else if (current.getRight().getValue() == null || current.getRight().getValue().toString() == null) {
+
+                    if (j == morseCode.length() - 1) {
+                        current.getRight().setValue(key);
+                    }
                 }
                 current = current.getRight();
-                lr = "1";
+
             }
         }
-        if (lr == "0" && lr != null) {
-            parent.setLeft(newNode);
-        } else if (lr == "1" && lr != null) {
-            parent.setRight(newNode);
-        } 
     }
 
     @Override
-    public void remove(T value) {
+    public void remove(T value) { 
         
     }
 
