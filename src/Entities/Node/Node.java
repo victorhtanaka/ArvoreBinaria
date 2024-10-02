@@ -1,6 +1,6 @@
 package Entities.Node;
 
-public class Node<T> {
+public class Node<T> implements INode<T> {
     private T value;
     private Node<T> left;
     private Node<T> right;

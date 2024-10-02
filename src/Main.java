@@ -1,51 +1,53 @@
-import java.util.HashMap;
+import java.util.Scanner;
 
-import Entities.Tree.CodeTree;
+import Controllers.MorseTreeController;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        HashMap<String, String> morseAlphabetical = new HashMap<String, String>() {
-            {
-                put("A", ".-");
-                put("B", "-...");
-                put("C", "-.-.");
-                put("D", "-..");
-                put("E", ".");
-                put("F", "..-.");
-                put("G", "--.");
-                put("H", "....");
-                put("I", "..");
-                put("J", ".---");
-                put("K", "-.-");
-                put("L", ".-..");
-                put("M", "--");
-                put("N", "-.");
-                put("O", "---");
-                put("P", ".--.");
-                put("Q", "--.-");
-                put("R", ".-.");
-                put("S", "...");
-                put("T", "-");
-                put("U", "..-");
-                put("V", "...-");
-                put("W", ".--");
-                put("X", "-..-");
-                put("Y", "-.--");
-                put("Z", "--..");
-                put("1", ".----");
-                put("2", "..---");
-                put("3", "...--");
-                put("4", "....-");
-                put("5", ".....");
-                put("6", "-....");
-                put("7", "--...");
-                put("8", "---..");
-                put("9", "----.");
-                put("0", "-----");
+        MorseTreeController morseTreeController = new MorseTreeController();
+
+        boolean menu = true;
+        while (menu) {
+            System.out.println(
+                "Selecione a funcionalidade desejada:\n" +
+                "1. Popular árvore\n" +
+                "2. Ver árvore\n" +
+                "3. Decodificar palavra\n" +
+                "4. Sair"
+            );
+            Scanner scanner = new Scanner(System.in);
+
+            int function = scanner.nextInt();
+            scanner.close();
+
+            switch (function) {
+                case 1:
+                    morseTreeController.createTree();
+                    break;
+
+                case 2:
+                    morseTreeController.viewTree();
+                    break;
+
+                case 3:
+                    morseTreeController.decodeWord(askWord());
+                    break;
+
+                case 4:
+                    menu = false;
+                    break;
+
+                default:
+                    System.out.println("Selecione uma opção válida");
             }
-        };
-        CodeTree<String> morseTree = new CodeTree<String>(morseAlphabetical, new char[] {'.', '-'}, ".-");
-        morseTree.addCharsToStack();
-        morseTree.createTree();
+        }
+    }
+
+    public static String askWord() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite a palavra em código morse:");
+        String word = scanner.nextLine();
+        scanner.close();
+        return word;
     }
 }

@@ -1,10 +1,6 @@
 package Entities.Tree;
 
-import java.awt.*;
 import java.util.HashMap;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Entities.Node.Node;
 import Entities.Queue.DynamicQueue;
@@ -31,13 +27,10 @@ public class CodeTree<T> extends Tree<T>  {
             T key = (T) keysQueue.retrieve();
             insert(key);
         }
-
-        showTreeInPanel(new JFrame());
     }
 
     @Override
     public void insert(T key) {
-        System.out.println("Inserindo: " + key);
         Node<T> newNode = new Node<>(key);
         Node<T> current = getRoot();
         Node<T> parent = null;
@@ -75,7 +68,6 @@ public class CodeTree<T> extends Tree<T>  {
                     }
                 }
                 current = current.getRight();
-
             }
         }
     }
@@ -102,42 +94,5 @@ public class CodeTree<T> extends Tree<T>  {
             }
         }
         return true;
-    }
-
-    public void showTreeInPanel(JFrame frame) {
-        JPanel panel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                drawTree(g, getRoot(), getWidth() / 2, 30, getWidth() / 4);
-            }
-        };
-        frame.add(panel);
-        frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
-
-    private void drawTree(Graphics g, Node<T> node, int x, int y, int xOffset) {
-        if (node != null) {
-            g.setColor(Color.BLACK);
-            g.fillOval(x - 10, y - 10, 20, 20);
-            g.setColor(Color.WHITE);
-            if (node.getValue() != null) {
-                g.drawString(node.getValue().toString(), x - 5, y + 5);
-            }
-            
-            if (node.getLeft() != null) {
-                g.setColor(Color.BLACK);
-                g.drawLine(x, y, x - xOffset, y + 50);
-                drawTree(g, node.getLeft(), x - xOffset, y + 50, xOffset / 2);
-            }
-            
-            if (node.getRight() != null) {
-                g.setColor(Color.BLACK);
-                g.drawLine(x, y, x + xOffset, y + 50);
-                drawTree(g, node.getRight(), x + xOffset, y + 50, xOffset / 2);
-            }
-        }
     }
 }
