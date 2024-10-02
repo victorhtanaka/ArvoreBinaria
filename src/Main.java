@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-import Tree.CodeTree;
+import Entities.Tree.CodeTree;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -44,7 +44,7 @@ public class Main {
                 put("0", "-----");
             }
         };
-        CodeTree<String> morseTree = new CodeTree<String>(morseAlphabetical, new char[] {'.', '-'}, "R");
+        CodeTree<String> morseTree = new CodeTree<String>(morseAlphabetical, new char[] {'.', '-'}, ".-");
         morseTree.addCharsToStack();
         morseTree.createTree();
     }

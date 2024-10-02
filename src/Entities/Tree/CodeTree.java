@@ -1,4 +1,4 @@
-package Tree;
+package Entities.Tree;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -6,7 +6,8 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Queue.DynamicQueue;
+import Entities.Node.Node;
+import Entities.Queue.DynamicQueue;
 
 public class CodeTree<T> extends Tree<T>  {
     private HashMap<String, String> morseMap;

@@ -1,4 +1,6 @@
-package Tree;
+package Entities.Tree;
+
+import Entities.Node.Node;
 
 public abstract class Tree<T> implements ITree<T> {
     private Node<T> root;

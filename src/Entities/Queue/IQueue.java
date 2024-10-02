@@ -1,4 +1,4 @@
-package Queue;
+package Entities.Queue;
 
 public interface IQueue<T> {
     void store(T data);

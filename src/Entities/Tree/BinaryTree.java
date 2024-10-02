@@ -1,6 +1,9 @@
-package Tree;
+package Entities.Tree;
 
 import javax.swing.*;
+
+import Entities.Node.Node;
+
 import java.awt.*;
 
 public class BinaryTree<T> extends Tree<T> {

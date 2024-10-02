@@ -1,4 +1,4 @@
-package Queue;
+package Entities.Queue;
 
 public abstract class Queue<T> implements IQueue<T> {
     protected int top = -1;

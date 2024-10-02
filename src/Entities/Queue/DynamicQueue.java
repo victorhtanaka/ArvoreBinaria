@@ -1,4 +1,4 @@
-package Queue;
+package Entities.Queue;
 
 public class DynamicQueue<T> extends Queue<T> {
 
