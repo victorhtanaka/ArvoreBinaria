@@ -30,7 +30,12 @@ public class Main {
                     break;
 
                 case 3:
-                    morseTreeController.decodeWord(askWord());
+                    String decodedWord = morseTreeController.decodeWord(askWord());
+                    if (decodedWord == null) {
+                        System.out.println("Código inválido");
+                    } else {
+                        System.out.println(decodedWord);
+                    }
                     break;
 
                 case 4:
