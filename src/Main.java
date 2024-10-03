@@ -7,6 +7,8 @@ public class Main {
         MorseTreeController morseTreeController = new MorseTreeController();
 
         boolean menu = true;
+        Scanner scanner = new Scanner(System.in);
+
         while (menu) {
             System.out.println(
                 "Selecione a funcionalidade desejada:\n" +
@@ -15,14 +17,13 @@ public class Main {
                 "3. Decodificar palavra\n" +
                 "4. Sair"
             );
-            Scanner scanner = new Scanner(System.in);
-
+            
             int function = scanner.nextInt();
-            scanner.close();
 
             switch (function) {
                 case 1:
                     morseTreeController.createTree();
+                    System.out.println("Árvore populada com sucesso");
                     break;
 
                 case 2:
@@ -30,12 +31,20 @@ public class Main {
                     break;
 
                 case 3:
-                    String decodedWord = morseTreeController.decodeWord(askWord());
-                    if (decodedWord == null) {
+                    System.out.println("Digite a palavra em código morse (separado por /): ");
+                    String morseWord = scanner.next();
+                    String[] letters = morseWord.split("/");
+                    String decodedWord = "";
+                    for(int i = 0; i < letters.length; i++) {
+                        decodedWord += morseTreeController.decodeWord(letters[i]);
+                        
+                    }
+                    if (decodedWord == "") {
                         System.out.println("Código inválido");
                     } else {
-                        System.out.println(decodedWord);
+                        System.out.println("Palavra decodificada: " + decodedWord);
                     }
+                    
                     break;
 
                 case 4:
@@ -46,13 +55,6 @@ public class Main {
                     System.out.println("Selecione uma opção válida");
             }
         }
-    }
-
-    public static String askWord() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite a palavra em código morse:");
-        String word = scanner.nextLine();
         scanner.close();
-        return word;
     }
 }
